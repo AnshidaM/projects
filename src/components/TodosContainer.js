@@ -1,44 +1,39 @@
-import React, { useEffect } from "react";
-import NewTodoList from "./NewTodoList";
-import classes from "./TodosContainer.module.css";
-import CompletedTodoList from "./CompletedTodoList";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import NewTodoList from "./NewTodoList";
+import CompletedTodoList from "./CompletedTodoList";
 import { fetchTodoData } from "../store/todos-actions";
-import { uiActions } from "../store/ui-slice";
+import classes from "./TodosContainer.module.css";
 
-let isInitial = true;
-const TodosContainer = (props) => {
-  let todoLoadingStatus = useSelector((state) => state.ui.todosLoadingStatus);
-  // console.log(todoLoadingStatus);
+const TodosContainer = () => {
   const dispatch = useDispatch();
+  const todoLoadingStatus = useSelector((state) => state.ui.todosLoadingStatus);
+  const todosChanged = useSelector((state) => state.todo.changed);
+  const isInitialRender = useRef(true);
 
-  const todos = useSelector((state) => state.todo);
-  console.log(todos);
   useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
       dispatch(fetchTodoData());
-      dispatch(uiActions.setStatus());
       return;
     }
-    //   dispatch(fetchTodoData()); // why ths cannot be provided here
-    // }, [dispatch, todos.changed]);
-  }, [dispatch]);
+    if (todosChanged) {
+      dispatch(fetchTodoData());
+    }
+  }, [dispatch, todosChanged]);
 
-  const content =
-    todoLoadingStatus === "Loaded" ? (
-      <>
-        <NewTodoList className={classes.new_todos} />
-        <div className={classes.seperator} />
-        <CompletedTodoList className={classes.completed_todos} />
-      </>
-    ) : (
-      <div className={classes.loading}>{todoLoadingStatus}</div>
-    );
   return (
-    <React.Fragment>
-      <div className={classes.todos}>{content}</div>
-    </React.Fragment>
+    <div className={classes.todos}>
+      {todoLoadingStatus === "Loaded" ? (
+        <div className={classes.container}>
+          <NewTodoList className={classes.new_todos} />
+          <div className={classes.seperator} />
+          <CompletedTodoList className={classes.completed_todos} />
+        </div>
+      ) : (
+        <div className={classes.loading}>{todoLoadingStatus}</div>
+      )}
+    </div>
   );
 };
 

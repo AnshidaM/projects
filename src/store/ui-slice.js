@@ -4,22 +4,28 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     notification: null,
+    // signedIn:true,
   },
-  todosLoadingStatus: null,
+  
+  todosLoadingStatus: "",
   loadingStatus: null,
   reducers: {
-    // showNotification(state, action) {
-    //   state.notification = {
-    //     status: action.payload.status,
-    //     title: action.payload.title,
-    //     message: action.payload.message,
-    //   };
+   
+    // },
+    // setSignIn(state){
+    //   state.signedIn=true
+    // },
+    // setSignOut(state){
+    //   state.signedIn=false
     // },
     setTodosLoadingStatus(state, action) {
       state.todosLoadingStatus = action.payload;
     },
     setStatus(state, action) {
       state.loadingStatus = action.payload;
+    },
+    clearStatus: (state) => {
+      state.loadingStatus = ""; // Reset to empty
     },
   },
 });

@@ -1,25 +1,26 @@
-import React from "react";
+import React, { useMemo } from "react";
 import TodoItem from "./TodoItem";
 import classes from "./CompletedTodoList.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { todoActions } from "../store/todos-slice";
+import { useSelector } from "react-redux";
 
-const CompletedTodoList = (props) => {
+const CompletedTodoList = ({ className }) => {
   const list = useSelector((state) =>
-    state.todo.items.filter((todo) => todo.checked === true)
+    state.todo.items.filter((todo) => todo.checked)
   );
 
-  const completedTodoList = list.map((todo) => (
-    <TodoItem
-      id={todo.id}
-      title={todo.title}
-      key={todo.id}
-      check={todo.checked}
-    />
-  ));
-  const emptylist = <div className={classes.emptylist}>No completed todos</div>;
-  const content = list.length > 0 ? completedTodoList : emptylist;
-  return <div className={props.className}>{content}</div>;
+  const completedTodos = useMemo(
+    () =>
+      list.map((todo) => (
+        <TodoItem id={todo.id} title={todo.title} key={todo.id} check={todo.checked} />
+      )),
+    [list]
+  );
+
+  return (
+    <div className={className}>
+      {list.length ? completedTodos : <div className={classes.emptylist}>No completed todos</div>}
+    </div>
+  );
 };
 
 export default CompletedTodoList;

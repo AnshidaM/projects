@@ -1,8 +1,7 @@
-.todos {
-  /* background-color: blue; */
+/* .todos {
+  
   border: 2px solid gray;
-
-  height: 27rem;
+  height: 25rem;
   display: flex;
   flex-direction: row;
   width: 89%;
@@ -11,6 +10,14 @@
   border-radius: 10px;
   padding: 4px 0px;
 }
+
+.container{
+  display: flex;
+  width: 100%;
+}
+
+
+
 
 .new_todos {
   width: 49%;
@@ -56,4 +63,148 @@
   justify-content: center;
   margin: auto;
   text-align: center;
+}
+
+@media (max-width: 800px) {
+  .container  {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+      width: 100%;
+  }
+}
+
+@media (min-width: 250px) and (max-width: 500px) {
+  .container{
+
+    display: flex;
+    justify-content: center;
+    
+    align-self: center;
+  }
+  .seperator {
+    display:none;
+    height: 0;
+  }
+
+  .todos {
+
+    border: 2px solid gray;
+min-width: 100px;
+width: 50%;
+    
+    display: flex;
+    justify-content: center;
+    height: 22rem;
+    border-radius: 10px; 
+    background-color: white;
+  }
+  .completed_todos {
+    width: 80%;
+    margin: 0rem 0.1rem;
+    background:none;
+    
+  }
+  .new_todos {
+    width: 80%;
+    margin: 0rem 0.1rem;
+    background:none;
+  }
+}
+
+
+ */
+ .todos {
+  
+  border: 2px solid gray;
+  height: 25rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* min-width: 300px; */
+  background-color: white;
+  
+  border-radius: 10px;
+  padding: 4px 0px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+
+
+.new_todos {
+  width: 80%;
+  min-width: 230px;
+  margin: 0.5rem 0.1rem;
+  padding: 0.2rem;
+  background-color: white;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.completed_todos {
+  width: 80%;
+  min-width: 230px;
+  margin: 0.5rem 0.1rem;
+  padding: 0.2rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+.seperator {
+ display: none;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  display: flex;
+  
+  align-items: center;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+}
+
+
+@media (min-width: 601px){
+  .container{
+   
+    flex-direction: row;
+  
+    width: 100%;
+  }
+  .seperator{
+    margin: 0.5rem 0.1rem;
+  width: 0.5px;
+  background-color: grey;
+  height: 95%;
+  border: 0.5px solid grey;
+  display: block;
+  }
+  .container{
+    align-items: flex-start;
+    
+  }
+  .todos {
+    max-width: 60rem;
+  }
+  
 }

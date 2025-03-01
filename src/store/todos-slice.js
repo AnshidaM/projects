@@ -5,6 +5,7 @@ const todoSlice = createSlice({
   initialState: {
     items: [],
     changed: false,
+   
   },
   reducers: {
     replaceTodos(state, action) {
@@ -15,7 +16,7 @@ const todoSlice = createSlice({
       const newItem = action.payload;
       state.changed = true;
       state.items = [...state.items, newItem];
-      // console.log(state.items);//
+      
     },
     removeItemFromTodos(state, action) {
       const id = action.payload;
@@ -25,7 +26,7 @@ const todoSlice = createSlice({
     },
     addCheckHandler(state, action) {
       const id = action.payload;
-      // console.log(id);
+      
       const newTodoList = state.items.map((todo) => {
         if (todo.id === id) {
           return { ...todo, checked: !todo.checked };
@@ -35,6 +36,7 @@ const todoSlice = createSlice({
       state.items = newTodoList;
       state.changed = true;
     },
+   
   },
 });
 

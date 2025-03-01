@@ -7,7 +7,11 @@ export const fetchTodoData = () => {
     const fetchData = async () => {
       dispatch(uiActions.setTodosLoadingStatus("Loading todo datas . . . ."));
       const response = await fetch(
-        "https://react-training-ad656-default-rtdb.firebaseio.com/todos2.json"
+        "https://todo-app-2625-default-rtdb.firebaseio.com/data.json",     {
+         
+        
+          
+ }
       );
 
       if (!response.ok) {
@@ -15,25 +19,25 @@ export const fetchTodoData = () => {
       }
 
       const data = await response.json();
-      // console.log(data.items);
+      
       return data;
     };
 
     try {
       const todoArray = [];
       toDoDatas = await fetchData();
-      // console.log(toDoDatas);
+     
       for (const key in toDoDatas) {
         todoArray.push(toDoDatas[key]);
       }
-      console.log(todoArray);
+      
       if (toDoDatas === null) {
         dispatch(uiActions.setTodosLoadingStatus("Empty todo List"));
         // throw new Error("Empty todo List");
       } else {
         dispatch(uiActions.setTodosLoadingStatus("Loaded"));
       }
-      console.log("data fetched");
+      
       dispatch(
         todoActions.replaceTodos({
           items: todoArray || [],
@@ -51,10 +55,11 @@ export const fetchTodoData = () => {
 };
 
 export const sendTodoData = async (todo) => {
-  // console.log(todo);
+
   const sendRequest = async (todo) => {
+
     const response = await fetch(
-      "https://react-training-ad656-default-rtdb.firebaseio.com/todos2.json",
+      "https://todo-app-2625-default-rtdb.firebaseio.com/data.json",
       {
         // mode: "no-cors",
         method: "POST",
@@ -70,7 +75,7 @@ export const sendTodoData = async (todo) => {
     await sendRequest(todo);
     return "success";
   } catch (error) {
-    console.log(error);
+  
   }
 };
 
@@ -88,12 +93,12 @@ export const updateTodoData = async (id) => {
         };
       }
     }
-    console.log(toDoDatas);
+   
     if (index === null) {
       throw new Error("Updating todo data failed.");
     }
     const response = await fetch(
-      `https://react-training-ad656-default-rtdb.firebaseio.com/todos2/${index}.json`,
+      `https://todo-app-2625-default-rtdb.firebaseio.com/data/${index}.json`,
       {
         method: "PUT",
         body: JSON.stringify(newItem),
@@ -107,12 +112,12 @@ export const updateTodoData = async (id) => {
     await updateRequest(id);
     return "success";
   } catch (error) {
-    console.log(error);
+    
   }
 };
 
 export const deleteTodoData = async (id) => {
-  // console.log(todos);
+
   const deleteRequest = async (id) => {
     let index = null;
     for (const key in toDoDatas) {
@@ -120,13 +125,13 @@ export const deleteTodoData = async (id) => {
         index = key;
       }
     }
-    console.log(toDoDatas);
+    
     if (index === null) {
       throw new Error("Removing todo data failed.");
     }
 
     const response = await fetch(
-      `https://react-training-ad656-default-rtdb.firebaseio.com/todos2/${index}.json`,
+      `https://todo-app-2625-default-rtdb.firebaseio.com/data/${index}.json`,
       {
         method: "DELETE",
       }
@@ -139,6 +144,6 @@ export const deleteTodoData = async (id) => {
     await deleteRequest(id);
     return "success";
   } catch (error) {
-    console.log(error);
+   
   }
 };
